@@ -62,16 +62,6 @@
                     </ul>
                 </li>
 
-                <li class="divider"></li>
-
-                <li class="nav-item">
-                    <a class="nav-link {{
-                        active_class(Route::is('admin/pages'))
-                    }}" href="{{ route('admin.pages.index') }}">
-                        <i class="nav-icon fas fa-file"></i>
-                        @lang('menus.backend.sidebar.pages')
-                    </a>
-                </li>
 
                 <li class="divider"></li>
 
@@ -160,7 +150,18 @@
                         </li>
                     </ul>
                 </li>
+
             @endif
+            <li class="divider"></li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{
+                        active_class(Route::is('admin/orders'))
+                    }}" href="{{ route('admin.orders.index') }}">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        @lang('menus.backend.sidebar.orders')
+                    </a>
+                </li>
         </ul>
     </nav>
 
