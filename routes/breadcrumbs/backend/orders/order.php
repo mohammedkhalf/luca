@@ -13,3 +13,9 @@ Breadcrumbs::for('admin.orders.edit', function ($trail, $id) {
     $trail->parent('admin.orders.index');
     $trail->push(__('labels.backend.access.orders.management'), route('admin.orders.edit', $id));
 });
+
+Breadcrumbs::for('admin.orders.show', function ($trail,$order) {
+    $trail->parent('admin.orders.index');
+    $trail->push(__('labels.backend.access.orders.management'), route('admin.orders.show',$order));
+});
+

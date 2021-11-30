@@ -26,7 +26,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('fetch:dropshippers')->cron('40 * * * *');
+        $schedule->command('fetch:products')->cron('45 * * * *');
+        $schedule->command('fetch:orders')->cron('50 * * * *');
+        $schedule->command('fetch:regions-and-areas')->daily();
     }
 
     /**

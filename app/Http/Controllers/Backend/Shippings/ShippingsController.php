@@ -1,50 +1,43 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Orders;
+namespace App\Http\Controllers\Backend\Shippings;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Backend\Orders\CreateOrdersRequest;
-use App\Http\Requests\Backend\Orders\DeleteOrdersRequest;
-use App\Http\Requests\Backend\Orders\EditOrdersRequest;
-use App\Http\Requests\Backend\Orders\StoreOrdersRequest;
-use App\Http\Requests\Backend\Orders\UpdateOrdersRequest;
-use App\Http\Requests\Backend\Orders\ManageOrderRequest;
 use App\Http\Responses\ViewResponse;
-use App\Repositories\Backend\OrdersRepository;
-use App\Models\Order;
-use App\Models\OrderLine;
-use Illuminate\Support\Facades\DB;
+use App\Repositories\Backend\ShippingsRepository;
+use App\Http\Requests\Backend\Shipping\ManageShippingRequest;
+use App\Http\Requests\Backend\Shipping\CreateShippingRequest;
+use App\Http\Requests\Backend\Shipping\StoreShippingRequest;
+use App\Http\Requests\Backend\Shipping\EditShippingRequest;
+use App\Http\Requests\Backend\Shipping\UpdateShippingRequest;
+use App\Http\Requests\Backend\Shipping\DeleteShippingRequest;
 
-use App\Http\Responses\RedirectResponse;
-
-class OrdersController extends Controller
+class ShippingsController extends Controller
 {
      /**
      * variable to store the repository object
-     * @var OrdersRepository
+     * @var ShippingRepository
      */
-    protected $repository;
+     protected $repository;
 
     /**
      * contructor to initialize repository object
-     * @param OrderRepository $repository;
+     * @param ShippingRepository $repository;
      */
-    public function __construct(OrdersRepository $repository)
+    public function __construct(ShippingsRepository $repository)
     {
         $this->repository = $repository;
     }
 
-
-    /**
+    /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ManageOrderRequest $request)
+    public function index(ManageShippingRequest $request)
     {
-        return new ViewResponse('backend.orders.index');
-
+        return new ViewResponse('backend.shippings.index');
     }
 
     /**
@@ -52,7 +45,7 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CreateShippingRequest $request)
     {
         //
     }
@@ -63,7 +56,7 @@ class OrdersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreShippingRequest  $request)
     {
         //
     }
@@ -74,11 +67,9 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ManageOrderRequest $request , Order $order)
+    public function show($id)
     {
-        $orderLines = OrderLine::where('order_id',$order->id)->get();
-        $dropshipperInfo = DB::table('dropshippers')->where('id',$order->dropshipper_id)->first();
-        return view('backend.orders.show',compact('order','orderLines','dropshipperInfo'));
+        //
     }
 
     /**
@@ -87,7 +78,7 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Shipping $shipping, EditShippingRequest $request)
     {
         //
     }
@@ -99,7 +90,7 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateShippingRequest $request, Shipping $shipping)
     {
         //
     }
@@ -110,9 +101,8 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Shipping $shipping, DeleteShippingRequest $request)
     {
         //
     }
-
 }

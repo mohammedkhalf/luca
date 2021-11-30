@@ -130,6 +130,7 @@ return [
             'faqs' => 'Faq Management',
             'email-templates' => 'Email Templates',
             'orders'=>'Orders',
+            'shippings'=>'Shippings'
         ],
     ],
 

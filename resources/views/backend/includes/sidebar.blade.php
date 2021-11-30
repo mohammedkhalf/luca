@@ -151,8 +151,7 @@
                     </ul>
                 </li>
 
-            @endif
-            <li class="divider"></li>
+                <li class="divider"></li>
 
                 <li class="nav-item">
                     <a class="nav-link {{
@@ -162,6 +161,19 @@
                         @lang('menus.backend.sidebar.orders')
                     </a>
                 </li>
+
+                <li class="divider"></li>
+                <li class="nav-item">
+                    <a class="nav-link {{
+                        active_class(Route::is('admin/shippings'))
+                    }}" href="{{ route('admin.shippings.index') }}">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        @lang('menus.backend.sidebar.shippings')
+                    </a>
+                </li>
+
+            @endif
+         
         </ul>
     </nav>
 

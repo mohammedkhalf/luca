@@ -24,7 +24,7 @@ class OrdersRepository extends BaseRepository
     public function getForDataTable()
     {
         return $this->query()
-            // ->leftJoin('order_statuses', 'order_statuses.order_id', '=', 'orders.id')
+            ->leftJoin('order_statuses', 'order_statuses.order_id', '=', 'orders.id')
             ->select([
                 'orders.id',
                 'orders.dropshipper_id',
@@ -38,7 +38,7 @@ class OrdersRepository extends BaseRepository
                 'orders.order_total_sales',
                 'orders.order_total_net',
                 'orders.creation_date',
-                // 'order_statuses.status',
+                'order_statuses.status',
             ]);
     }
 

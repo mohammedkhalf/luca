@@ -60,9 +60,7 @@ class OrdersTableController extends Controller
                 ->addColumn('order_total_net', function ($order) {
                     return $order->order_total_net;
                 })
-                // ->addColumn('status', function ($order) {
-                //     return $order->status;
-                // })
+               
                 ->addColumn('creation_date', function ($order) {
                     return $order->creation_date;
                 })
@@ -70,8 +68,8 @@ class OrdersTableController extends Controller
                 ->addColumn('actions', function ($order) {
 
                     $btn =
-                        '<a href="#" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.general.crud.show').'" class="btn btn-primary btn-sm">
-                            <i class="fas fa-edit"></i>
+                        '<a href="'.route('admin.orders.show', $order).'" data-toggle="tooltip" data-placement="top" title="'.trans('buttons.general.crud.show').'" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye"></i>
                         </a>';
                     return $btn;
                 })

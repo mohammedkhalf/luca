@@ -22,23 +22,39 @@
         <div class="row mt-4">
             <div class="col">
                 <div class="table-responsive">
-                    <table id="orders-table" class="table" data-ajax_url="{{ route("admin.orders.get") }}">
-                        <thead>
-                            <tr>
-                                <th>  <input type="checkbox" id="mass_select_all" data-to-table="tasks"> </th>
-                                <th>{{ trans('labels.backend.access.orders.table.order_id') }}</th>
-                                <th>{{ trans('labels.backend.access.orders.table.dropshipper_id') }}</th>
-                                <th>{{ trans('labels.backend.access.orders.table.consumer_name') }}</th>
-                                <th>{{ trans('labels.backend.access.orders.table.consumer_mobile_1') }}</th>
-                                <th>{{ trans('labels.backend.access.orders.table.address') }}</th>
-                                <!-- <th>{{ trans('labels.backend.access.orders.table.status') }}</th> -->
-                                <th>{{ trans('labels.backend.access.orders.table.createdat') }}</th>
-                                <th>{{ trans('labels.general.actions') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <form name="frm-example" id="frm-example"> 
+
+                        <table id="orders-table" class="table" data-ajax_url="{{ route("admin.orders.get") }}">
+                            <thead>
+                                <tr>
+                                    <th>  <input type="checkbox" id="mass_select_all" data-to-table="tasks"> </th>
+                                    <th>{{ trans('labels.backend.access.orders.table.order_id') }}</th>
+                                    <th>{{ trans('labels.backend.access.orders.table.dropshipper_id') }}</th>
+                                    <th>{{ trans('labels.backend.access.orders.table.consumer_name') }}</th>
+                                    <th>{{ trans('labels.backend.access.orders.table.consumer_mobile_1') }}</th>
+                                    <th>{{ trans('labels.backend.access.orders.table.address') }}</th>
+                                    <!-- <th>{{ trans('labels.backend.access.orders.table.status') }}</th> -->
+                                    <th>{{ trans('labels.backend.access.orders.table.createdat') }}</th>
+                                    <th>{{ trans('labels.general.actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+
+                        </table>
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+
+                            <p><b>Form data:</b></p>
+                            <div id="example-console-form"></div>
+
+                            <p><b>Count Selected : </b></p>
+                            <div id="count-selected"></div>
+
+
+                    </form>
+
                 </div>
             </div>
             <!--col-->
@@ -53,7 +69,7 @@
 @section('pagescript')
 <script>
        FTX.Utils.documentReady(function() {
-         $('#orders-table').dataTable({
+            $('#orders-table').dataTable({
                     processing: true,
                     serverSide: true,
                     ajax: {
@@ -77,7 +93,45 @@
                         FTX.Utils.dtAnchorToForm(row);
                     }
                 });
-    });
+
+                //display Checkbox in column
+                $('body').on('change', '#mass_select_all', function() {
+                    var rows, checked;
+                    rows = $('#orders-table').find('tbody tr');
+                    checked = $(this).prop('checked');
+                    $.each(rows, function() {
+                        var checkbox = $($(this).find('td').eq(0)).find('input').prop('checked', checked);
+                    });
+                });
+
+            //POST Request Orders ID 
+            var table = $('#orders-table').dataTable();
+            // Handle form submission event 
+            $('#frm-example').on('submit', function(e){
+                // Prevent actual form submission
+                e.preventDefault();
+                // Serialize form data
+                var data = table.$('input[type="checkbox"]').serialize(); 
+
+                console.log(data);
+
+                // Submit form data via Ajax
+                $.ajax({
+                    url: '/echo/jsonp/',
+                    data: data,
+                    success: function(data){
+                        console.log('Server response', data);
+                    }
+                });
+                // FOR DEMONSTRATION ONLY
+                // The code below is not needed in production
+                
+                // Output form data to a console     
+                $('#example-console-form').text(data);
+                // Output form data to a console     
+                $('#count-selected').text($('input:checkbox:checked').length);
+            });
+        });
 </script>
 
 @stop

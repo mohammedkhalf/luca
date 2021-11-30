@@ -14,4 +14,6 @@ require __DIR__.'/faqs/faq.php';
 require __DIR__.'/email-templates/email-template.php';
 require __DIR__.'/auth/permission.php';
 require __DIR__.'/orders/order.php';
+require __DIR__.'/shippings/shipping.php';
+
 
